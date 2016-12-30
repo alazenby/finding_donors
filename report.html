@@ -13281,16 +13281,15 @@ $$ F_{\beta} = (1 + \beta^2) \cdot \frac{precision \cdot recall}{\left( \beta^2 
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython2"><pre><span></span><span class="c1"># TODO: Calculate accuracy</span>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="n">n_records</span>
 
 <span class="c1"># TODO: Calculate F-score using the formula above for beta = 0.5</span>
-<span class="n">precision</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="n">n_records</span>
 <span class="n">recall</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="n">n_greater_50k</span>
-<span class="n">fscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">precision</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="o">*</span><span class="n">precision</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
+<span class="n">fscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="o">.</span><span class="mi">5</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">accuracy</span><span class="o">*</span><span class="n">recall</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">accuracy</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span>
 
 <span class="c1"># Print the results </span>
 <span class="k">print</span> <span class="s2">&quot;Naive Predictor: [Accuracy score: {:.4f}, F-score: {:.4f}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span><span class="p">,</span> <span class="n">fscore</span><span class="p">)</span>
@@ -13306,7 +13305,7 @@ $$ F_{\beta} = (1 + \beta^2) \cdot \frac{precision \cdot recall}{\left( \beta^2 
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Naive Predictor: [Accuracy score: 0.2478, F-score: 0.3308]
+<pre>Naive Predictor: [Accuracy score: 0.2478, F-score: 0.2917]
 </pre>
 </div>
 </div>
@@ -14758,7 +14757,7 @@ YII=
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Answer: </strong> <em>The Gradient Boosting Classifier is an enseble method. It trains multiple simpler models sequentially to create a more complex, flexible model. Gradient boosting takes one sample from the training set and trains a decision tree, it then computes the number of data points that were misclassified with that tree and puts heavier weights on them, in otherwords, labels them so that they're recognized as more important. Then it takes another sample (that includes the weights) and trains another decision tree. It continues to train decision trees again and again, adjusting the weights of the data points it misclassified each time, until it lands on a final tree that most successfully classifies the data. This final model, a result of all the previous models tried, is used for predictions.</em></p>
+<p><strong>Answer: </strong> <em>The Gradient Boosting Classifier is an "ensemble" method. It combines multiple simpler models to create a more complex, accurate model of the data. In our example, we're using census data (like age and education level) to determine whether a person has an income greater than or less than 50K. Gradient boosting does multiple rounds of training where it takes a set of our data and creates a set of rules in a flowchart that predict whether each person makes more than 50K, it then computes the number of data points that were misclassified (the model said they made more than 50K when they made less, and vice versa) with that flowchart. This misclassification is measured using the "gradient". Then the algorithm tries to create a better model using the knowledge of what was misclassified (and how much) last time. It keeps doing this as many times as you like. When it is finished, it creates a final model of the data using all of these models combined where the trees with less error are more important. Then this final model is used to make predictions for unknown data (in our case, individuals who were not in that training set of data)</em></p>
 
 </div>
 </div>
@@ -14890,7 +14889,7 @@ Final F-score on the testing data: 0.7531
 </tr>
 <tr>
 <td style="text-align:center">F-score</td>
-<td style="text-align:center">0.3308</td>
+<td style="text-align:center">0.2917</td>
 <td style="text-align:center">0.7395</td>
 <td style="text-align:center">0.7531</td>
 </tr>
